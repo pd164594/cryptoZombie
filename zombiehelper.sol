@@ -1,7 +1,5 @@
 pragma solidity ^0.4.19;
-
 import "./zombiefeeding.sol";
-
 contract ZombieHelper is ZombieFeeding {
 
   modifier aboveLevel(uint _level, uint _zombieId) {
@@ -21,7 +19,13 @@ contract ZombieHelper is ZombieFeeding {
 
   function getZombiesByOwner(address _owner) external view returns(uint[]) {
     uint[] memory result = new uint[](ownerZombieCount[_owner]);
-    // Start here
+    uint counter = 0;
+    for (uint i = 0; i < zombies.length; i++) {
+      if (zombieToOwner[i] == _owner) {
+        result[counter] = i;
+        counter++;
+      }
+    }
     return result;
   }
 
